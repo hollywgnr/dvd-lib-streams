@@ -53,6 +53,15 @@ public class DVDLibraryController {
                         searchDVDByTitle();
                         break;
                     case 7:
+                        listNDVDs();
+                        break;
+                    case 8:
+                        listDVDsWithContentRating();
+                        break;
+                    case 9:
+                        listDVDsWithDirector();
+                        break;
+                    case 10:
                         keepGoing = false;
                         break;
                     default:
@@ -116,5 +125,27 @@ public class DVDLibraryController {
     private void exitMessage() {
         view.displayExitBanner();
     }
+    
+    // new stream methods
+    private void listNDVDs() {
+        view.displayListDVDsBanner();
+        int N = view.getNyears();
+        List<DVD> dvdList = dao.getDVDsLastNYears(N);
+        view.displayDVDList(dvdList);
+    }
 
+    private void listDVDsWithContentRating() {
+        view.displayListDVDsBanner();
+        DVD.ContentRating cr = view.getContentRating();
+        List<DVD> dvdList = dao.getDVDsWithRating(cr);
+        view.displayDVDList(dvdList);
+    }
+    
+    private void listDVDsWithDirector() {
+        view.displayListDVDsBanner();
+        String dir = view.getDirector();
+        List<DVD> dvdList = dao.getDVDsWithDirector(dir);
+        view.displayDVDList(dvdList);
+    }
+    
 }

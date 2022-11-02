@@ -6,6 +6,7 @@
 package com.wiley.dvdlibrary.dao;
 
 import com.wiley.dvdlibrary.dto.DVD;
+import com.wiley.dvdlibrary.dto.DVD.ContentRating;
 import java.util.List;
 
 /**
@@ -20,4 +21,9 @@ public interface DVDLibraryDao {
     DVD getDVD(int dvdId) throws DVDLibraryPersistenceException;
     List<DVD> getAllDVDs();
     List<DVD> searchDVDsByTitle(String title) throws DVDLibraryPersistenceException;
+    
+    // new stream methods
+    List<DVD> getDVDsLastNYears(int N);
+    List<DVD> getDVDsWithRating(ContentRating cr);
+    List<DVD> getDVDsWithDirector(String director);
 }

@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -162,4 +163,44 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
 
         return dvdAsText;
     }
+    
+    // new stream methods
+    @Override
+    public List<DVD> getDVDsLastNYears(int N) {
+        LocalDate today = LocalDate.now();
+        int thisYear = today.getYear();
+        int startYear = thisYear - N;
+        String todayStr = today.toString().split("-")[1] + "-" + today.toString().split("-")[2];
+        LocalDate startDate = LocalDate.parse(startYear + "-" + todayStr);
+        
+        List<DVD> dvdList = getAllDVDs();
+        List<DVD> resultList = dvdList.stream()
+                .filter((d) -> d.getReleaseDate().isAfter(startDate))
+                .collect(Collectors.toList());
+        
+        return resultList;
+    }
+    
+    @Override
+    public List<DVD> getDVDsWithRating(ContentRating cr) {
+        
+        List<DVD> dvdList = getAllDVDs();
+        List<DVD> resultList = dvdList.stream()
+                .filter((d) -> d.getContentRating().equals(cr))
+                .collect(Collectors.toList());
+        
+        return resultList;
+    }
+    
+    @Override
+    public List<DVD> getDVDsWithDirector(String director) {
+        
+        List<DVD> dvdList = getAllDVDs();
+        List<DVD> resultList = dvdList.stream()
+                .filter((d) -> d.getDirector().equals(director))
+                .collect(Collectors.toList());
+        
+        return resultList;
+    }    
+
 }

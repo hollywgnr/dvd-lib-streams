@@ -6,6 +6,7 @@
 package com.wiley.dvdlibrary.ui;
 
 import com.wiley.dvdlibrary.dto.DVD;
+import com.wiley.dvdlibrary.dto.DVD.ContentRating;
 import com.wiley.dvdlibrary.dto.UserRating;
 import java.time.LocalDate;
 
@@ -32,9 +33,12 @@ public class DVDLibraryView {
         io.print("4. List DVDs");
         io.print("5. Get DVD information");
         io.print("6. Search for DVD by Title");
-        io.print("7. Exit");
+        io.print("7. List DVDs last N years");
+        io.print("8. List DVDs given content rating");
+        io.print("9. List DVDs given director");
+        io.print("10. Exit");
 
-        return io.readInt("Please select from the above choices:", 1, 7);
+        return io.readInt("Please select from the above choices:", 1, 10);
     }
 
     public DVD getNewDVDInfo() {
@@ -142,4 +146,21 @@ public class DVDLibraryView {
         io.print("=== ERROR ===");
         io.print(errorMsg);
     }
+    
+    // new stream methods
+    public int getNyears() {
+        int N = io.readInt("Please enter the number of years to search:");
+        return N;
+    }
+    
+    public ContentRating getContentRating() {
+        DVD.ContentRating cr = DVD.ContentRating.valueOf(io.readString("Please enter the contentRating to search:"));
+        return cr;
+    }
+    
+    public String getDirector() {
+        String dir = io.readString("Please enter the director to search:");
+        return dir;
+    }
+    
 }
